@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Detail</title>
+    <style>
+        .post-entry {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 12px;
+            background: rgb(156, 80, 225);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .post-entry h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .post-entry p {
+            line-height: 1.6;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="post-entry">
+        <h2>{{ post.title }}</h2>
+        <p style="color: white;">{{ post.text }}</p>
+    </div>
+<form method="post" style="max-width: 700px; margin: 20px auto;">
+    {% csrf_token %}
+    <div style="margin-bottom: 10px;">
+        <textarea name="body" rows="4" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc;" placeholder="Add a comment..." required></textarea>
+    </div>
+    <button type="submit" style="padding: 10px 20px; border: none; border-radius: 8px; background-color: rgb(156, 80, 225); color: white; cursor: pointer;">Submit Comment</button>
+</form>
+{% if comments %}
+    <div style="max-width: 700px; margin: 20px auto;">
+        <h3>Comments:</h3>
+        <ul style="list-style-type: none; padding: 0;">
+            {% for comment in comments %}
+                <li style="background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
+                    <strong>{{ comment.author.username }}</strong> on {{ comment.created_at|date:"M d, Y H:i" }}<br>
+                    <p style="margin: 5px 0;"></p>
+                    <h5>{{ comment.content }}</h5>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% else %}
+    <p style="max-width: 700px; margin: 20px auto;">No comments yet. Be the first to comment!</p>
+{% endif %}
+</body>
+</html>

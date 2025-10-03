@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Registration Form</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Registration form -->
+        <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+            {% csrf_token %}  <!-- CSRF token for security -->
+
+            <!-- Registration form heading -->
+            <h1 style="text-align: center;"><span style="color:rgb(156, 80, 225);">GISTWARE</span></h1>
+            <h3><span style="color: rgb(156, 80, 225);">Register</span></h3>
+            <hr>
+
+            <!-- Display error/success messages -->
+            {% if messages %}
+            <div class="alert alert-primary" role="alert">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- First Name input field -->
+            <div class="form-group">
+                <label for="exampleInputEmail1">First name</label>
+                <input type="text" 
+                class="form-control custom-input"
+                 id="exampleInputEmail1" 
+                 aria-describedby="emailHelp"
+                 placeholder="Enter First name" 
+                 name="first_name" required>
+            </div>
+            <style>
+/* Custom purple input */
+.custom-input {
+  border: 2px solid #9c50e1; /* base border */
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Focused (when clicked/typed in) */
+.custom-input:focus {
+  border-color: rgb(156, 80, 225);
+  box-shadow: 0 0 8px rgba(156, 80, 225, 0.7); /* purple glow */
+  outline: none; /* removes default blue outline */
+}
+</style>
+            <!-- Last Name input field -->
+            <div class="form-group">
+                <label for="exampleInputEmail1">Last name</label>
+                <input type="text" 
+                name="last_name" 
+                class="form-control custom-input"
+                id="exampleInputEmail1"
+                aria-describedby="emailHelp"
+                placeholder="Enter Last name" required>
+            </div>
+            <style>
+/* Custom purple input */
+.custom-input {
+  border: 2px solid #9c50e1; /* base border */
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Focused (when clicked/typed in) */
+.custom-input:focus {
+  border-color: rgb(156, 80, 225);
+  box-shadow: 0 0 8px rgba(156, 80, 225, 0.7); /* purple glow */
+  outline: none; /* removes default blue outline */
+}
+</style>
+
+
+<div class="form-group">
+  <label for="exampleInputEmail1">Username</label>
+  <input 
+    type="text" 
+    class="form-control custom-input" 
+    name="username" 
+    id="exampleInputEmail1" 
+    placeholder="Enter username" 
+    required>
+</div>
+
+            <style>
+/* Custom purple input */
+.custom-input {
+  border: 2px solid #9c50e1; /* base border */
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Focused (when clicked/typed in) */
+.custom-input:focus {
+  border-color: rgb(156, 80, 225);
+  box-shadow: 0 0 8px rgba(156, 80, 225, 0.7); /* purple glow */
+  outline: none; /* removes default blue outline */
+}
+</style>
+
+
+            <!-- Password input field -->
+            <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" 
+                class="form-control custom-input"
+                name="password"
+                id="exampleInputPassword1"
+                placeholder="Password" required>
+            </div>
+            <style>
+/* Custom purple input */
+.custom-input {
+  border: 2px solid #9c50e1; /* base border */
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Focused (when clicked/typed in) */
+.custom-input:focus {
+  border-color: rgb(156, 80, 225);
+  box-shadow: 0 0 8px rgba(156, 80, 225, 0.7); /* purple glow */
+  outline: none; /* removes default blue outline */
+}
+</style>
+
+
+            <!-- Link to login page for users who already have an account -->
+            <p>Already have an account <a href="/login/" style="color:rgb(100, 30, 180);">Login</a> </p>
+
+            <!-- Submit button -->
+             <button type="submit" class="btn btn-primary custom-btn">Submit</button>
+
+<style>
+  .custom-btn {
+    background-color: rgb(156, 80, 225) !important;
+    border-color: rgb(156, 80, 225) !important;
+  }
+
+  .custom-btn:hover {
+    background-color: rgb(136, 60, 205) !important; /* darker hover */
+    border-color: rgb(136, 60, 205) !important;
+  }
+</style>
+
+        </form>
+    </div>
+</body>
+</html>
