@@ -28,6 +28,7 @@
 </head>
 <body>
     <div class="post-entry">
+        <a href="{% url 'main' %}" style="display: block; text-align: center; margin: 20px; color: rgb(255,255,255); text-decoration: none; font-weight: bold;">&larr; Home</a>
         <h2>{{ post.title }}</h2>
         <p style="color: white;">{{ post.text }}</p>
     </div>
@@ -40,13 +41,13 @@
 </form>
 {% if comments %}
     <div style="max-width: 700px; margin: 20px auto;">
-        <h3>Comments:</h3>
+        <h3 style="color: rgb(156, 80, 225);">Comments:</h3>
         <ul style="list-style-type: none; padding: 0;">
             {% for comment in comments %}
-                <li style="background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px;">
-                    <strong>{{ comment.author.username }}</strong> on {{ comment.created_at|date:"M d, Y H:i" }}<br>
+                <li style="background: #f9f9f9; padding: 10px; border-radius: 8px; margin-bottom: 10px;",color: rgb(156, 80, 225);>
+                    <strong>{{ comment.author.username }}</strong> on {{ comment.created_at|date:"M d, Y "}}<br>
                     <p style="margin: 5px 0;"></p>
-                    <h5>{{ comment.content }}</h5>
+                    <h4 style="color: rgb(156, 80, 225);">{{ comment.content }}</h4>
                 </li>
             {% endfor %}
         </ul>
