@@ -2,6 +2,7 @@ from django.views.generic import ListView,DetailView,UpdateView,DeleteView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect,get_object_or_404
 from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import UserPassesTestMixin
 from .models import Post,Comment
 from .forms import PostForm
 from django.urls import reverse_lazy
@@ -67,6 +68,7 @@ class PostUpdateView(UpdateView):
     
     def get_success_url(self):
         return reverse_lazy('post_detail', kwargs={'pk': self.object.pk})
+
 
 # Delete Post
 class PostDeleteView(DeleteView):
