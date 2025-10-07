@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GISTWARE </title>
+    <title>GISTWARE</title>
     <style>
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
-            background-color: #f9f6ff;
+            background: linear-gradient(rgb(156,80,225), purple);
+            min-height: 100vh;
         }
 
         header {
-            background: linear-gradient(135deg, rgb(156,80,225), rgb(120,40,200));
+            background:linear-gradient(rgb(156,80,225), purple);
             padding: 20px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -20,52 +21,14 @@
         }
 
         header h1 {
-            color: black;
-            font-size: 2.8rem;
+            color: rgb(255,255,255);
+            font-size: 2.4rem;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             margin: 0;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.15);
         }
 
-        .posts-container {
-            width: 90%;
-            max-width: 800px;
-            margin: 40px auto;
-        }
-
-        .post-entry {
-            border: 2px solid white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            background: rgb(156,80,225);
-            box-shadow: 0 0 10px rgba(156,80,225,0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .post-entry:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(156,80,225,0.4);
-        }
-
-        .post-entry h2 a {
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .post-entry h2 a:hover {
-            text-decoration: underline;
-        }
-
-        .post-entry p {
-            color: white;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        /* Auth Buttons */
         .auth-nav {
             display: flex;
             gap: 1rem;
@@ -85,24 +48,103 @@
             border: 2px solid rgb(156,80,225);
             color: rgb(156,80,225);
         }
+
         .login:hover {
             background: rgb(156,80,225);
             color: white;
         }
 
         .register, .logout {
+            background: rgb(255,255,255);
+            color: purple;
+        }
+
+        .register:hover, .logout:hover {
+            background: rgb(120,40,200);
+        }
+
+        .posts-container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .post-entry {
+            border: 2px solid #a974e8;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(156,80,225,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post-entry:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(156,80,225,0.4);
+        }
+
+        .post-entry h2 a {
+            color: rgb(156,80,225);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .post-entry h2 a:hover {
+            text-decoration: underline;
+        }
+
+        .post-entry p {
+            color: rgb(90, 50, 150);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .action-btns {
+            margin-top: 10px;
+        }
+
+        .action-btns a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
             background: rgb(156,80,225);
             color: white;
         }
-        .register:hover, .logout:hover {
-            background: rgb(120,40,200);
+
+        .btn-edit:hover {
+            background: rgb(156,80,225);
+        }
+
+        .btn-delete {
+            background: #ff4b5c;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #d43a4b;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: #fff;
+            font-size: 0.9rem;
+            opacity: 0.8;
         }
     </style>
 </head>
 
 <body>
     <header>
-        <h1 style="color: white;">GISTWARE</h1>
+        <h1>GISTWARE</h1>
     </header>
 
     <div class="auth-nav">
@@ -117,14 +159,21 @@
     <div class="posts-container">
         {% for post in all_posts_list %}
             <div class="post-entry">
-                <h2>
-                    <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
-                </h2>
-                    <p>{{ post.text|truncatechars:200 }}</p>
+                <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+                <p>{{ post.text|truncatechars:200 }}</p>
+
+                {% if user.is_authenticated %}
+                    <div class="action-btns">
+                        <a href="{% url 'post_edit' post.pk %}" class="btn-edit">Edit</a>
+                        <a href="{% url 'post_delete' post.pk %}" class="btn-delete">Delete</a>
+                    </div>
+                {% endif %}
             </div>
         {% empty %}
-            <p style="text-align:center; color:purple;">No gists yet... drop one 😉</p>
+            <p style="text-align:center; color:#fff;">No gists yet... drop one 😉</p>
         {% endfor %}
     </div>
+
+    <footer style="color: white;">© 2025 GISTWARE. Built with 💜 by Seenarh</footer>
 </body>
 </html>

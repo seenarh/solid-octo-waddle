@@ -61,7 +61,10 @@ def register_page(request):
     return render(request, 'register.html')
 
 
-
+def logout(request):
+    from django.contrib.auth import logout as auth_logout
+    auth_logout(request)
+    return redirect('/login/')
 
 
 

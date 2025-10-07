@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Post - GISTWARE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #9c50e1, #7828c8);
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .edit-container {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.4rem; /* smaller font */
+      margin-bottom: 0.5rem; /* tighter spacing */
+      margin-top: 0; /* remove default margin */
+      letter-spacing: 0.3px;
+      font-weight: 600;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem; /* compact spacing between fields */
+      margin-top: 0.6rem; /* smaller gap from title */
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: #f5f5f5;
+      font-size: 0.9rem;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 0.95rem;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      box-shadow: 0 6px 16px rgba(156,80,225,0.45);
+      transform: translateY(-2px);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 110px; /* smaller height */
+    }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-top: 0.3rem; /* minimal top space */
+    }
+
+    .btn {
+      padding: 0.6rem 1.4rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-save {
+      background: #4b2c82;
+      color: white;
+    }
+    .btn-save:hover {
+      background: #3c216b;
+      transform: scale(1.05);
+    }
+
+    .btn-cancel {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-cancel:hover {
+      background: rgba(255,255,255,0.35);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="edit-container">
+    <h2>✏️ Edit Post</h2>
+    <form method="POST">
+      {% csrf_token %}
+      
+      <div>
+        <label for="id_title">Title</label>
+        {{ form.title }}
+      </div>
+      
+      <div>
+        <label for="id_text">Body</label>
+        {{ form.text }}
+      </div>
+
+      <div class="btns">
+        <button type="submit" class="btn btn-save">Save</button>
+        <a href="{% url 'main' %}" class="btn btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+

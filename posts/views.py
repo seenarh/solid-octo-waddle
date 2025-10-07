@@ -1,8 +1,11 @@
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,DetailView,UpdateView,DeleteView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect,get_object_or_404
 from django.utils.decorators import method_decorator
 from .models import Post,Comment
+from .forms import PostForm
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 class PostListView(ListView):
@@ -56,6 +59,17 @@ class PostDetailView(DetailView):
             )
         return redirect("post_detail", pk=post.pk)
 
-
+# Edit Post
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'post_edit.html'  # you’ll create this file next
     
+    def get_success_url(self):
+        return reverse_lazy('post_detail', kwargs={'pk': self.object.pk})
 
+# Delete Post
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'post_delete.html'  # you’ll create this file next
+    success_url = reverse_lazy('main')
