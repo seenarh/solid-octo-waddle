@@ -14,6 +14,30 @@ class PostListView(ListView):
     template_name = 'main.html'
     context_object_name = 'all_posts_list'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = [{'slug': slug, 'name': name} for slug, name in Post.CATEGORY_CHOICES]
+        context['current_category'] = None
+        return context
+    
+class CategoryListView(ListView):
+    model = Post
+    template_name = 'main.html'
+    context_object_name = 'all_posts_list'
+
+    def get_queryset(self):
+        category_slug = self.kwargs['category_slug']
+        return Post.objects.filter(category=category_slug).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        categories = [{'slug': slug, 'name': name} for slug, name in Post.CATEGORY_CHOICES]
+        context['categories'] = categories
+        category_slug = self.kwargs['category_slug']
+        context['current_category'] = next((c for c in categories if c['slug'] == category_slug), None)
+        return context
+
+
 @login_required
 def post_new(request):
     # allow only staff & superusers
