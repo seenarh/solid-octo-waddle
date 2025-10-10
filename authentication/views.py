@@ -22,9 +22,9 @@ def login_page(request):
         if user is None:
             messages.error(request,'invalid password')
             return redirect('/login/')
-        elif user.is_staff:
-            login(request,user)
-            return redirect('/post_new/')
+        #elif user.is_staff:
+            #login(request,user)
+            #return redirect('/post_new/')
         else :
             login(request,user)
         return redirect('/main/')

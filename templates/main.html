@@ -12,11 +12,38 @@
     }
 
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #9c50e1, #7828c8);
+      background: linear-gradient(135deg, #8A2BE2, #D8B4FE);
       color: #fff;
-      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 1.5rem;
+      padding: 3rem 4rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #f4e9ff;
+      margin-bottom: 2rem;
+    }
+
+
     }
 
     /* ---- HEADER ---- */
@@ -234,6 +261,9 @@
   </header>
 
   <div class="posts-container">
+    <h1>Hey there 👋 Welcome to [Your Brand Name]</h1>
+<p>I write about the things that shape how we live, build, and create. Choose a category below and let’s explore.</p>
+
     {% for post in all_posts_list %}
       <div class="post-entry">
         <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
