@@ -1,63 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post New Gist</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(135deg, #b388eb, #9d4edd, #7b2cbf);
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-        }
-        .card {
-            background-color: #fff;
-            color: #333;
-            border: none;
-            border-radius: 1rem;
-        }
-        .btn-purple {
-            background-color: #9d4edd;
-            border: none;
-        }
-        .btn-purple:hover {
-            background-color: #7b2cbf;
-        }
-        a {
-            color: #7b2cbf;
-            font-weight: 500;
-        }
-        a:hover {
-            text-decoration: underline;
-            color: #5a189a;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Add New Post | GISTWARE</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #f5f3ff, #ede9fe, #c4b5fd);
+      color: #3b0764;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: rgb(156,80,225);
+      backdrop-filter: blur(10px);
+      padding: 2.5rem 3rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 10px 35px rgba(168, 85, 247, 0.3);
+      width: 90%;
+      max-width: 600px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.8rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    label {
+      font-weight: 600;
+      color: #4b0082;
+      margin-bottom: 0.2rem;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      background: rgba(243, 232, 255, 0.6);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 0.6rem;
+      color: #3b0764;
+      padding: 0.9rem 1rem;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+      transition: 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #9333ea;
+      box-shadow: 0 0 8px rgba(147, 51, 234, 0.4);
+      background: #fdf4ff;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #a78bfa;
+    }
+
+    select {
+      color: #3b0764;
+      appearance: none;
+      cursor: pointer;
+    }
+
+    textarea {
+      height: 160px;
+      resize: none;
+    }
+
+    button {
+      background: linear-gradient(90deg, #9333ea, #7e22ce);
+      border: none;
+      border-radius: 0.8rem;
+      color: white;
+      font-size: 1.1rem;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #a855f7, #6d28d9);
+      transform: translateY(-2px);
+    }
+
+    a.back {
+      display: inline-block;
+      text-align: center;
+      margin-top: 1.2rem;
+      color: #7e22ce;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s ease;
+    }
+
+    a.back:hover {
+      color: #9333ea;
+      text-decoration: underline;
+    }
+
+    .success-message {
+      display: none;
+      text-align: center;
+      color: #16a34a;
+      font-weight: 600;
+      margin-top: 1rem;
+      background: rgba(240, 253, 244, 0.8);
+      border-radius: 0.5rem;
+      padding: 0.8rem;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>💫 Add New Post</h1>
 
-    <div class="container d-flex justify-content-center align-items-center vh-100">
-        <form class="card p-4 shadow-lg" style="max-width: 500px; width: 100%;" method="post" enctype="multipart/form-data">
-            <a href="/main/" class="text-decoration-none mb-3 d-inline-block">&larr; Back to Main</a>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="success-message" style="display:block;">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
 
-            <h2 class="text-center mb-3 fw-bold" style="color:#7b2cbf;">Let’s Have It!</h2>
-            {% csrf_token %}
+    <form method="POST">
+      {% csrf_token %}
 
-            <h5 class="text-center mb-3" style="color:#9d4edd;">New Gist Incoming </h5>
+      <label for="category">Category</label>
+      <select name="category" id="category" required>
+        {% for slug, name in categories %}
+          <option value="{{ slug }}" {% if slug == category_slug %}selected{% endif %}>
+            {{ name|title }}
+          </option>
+        {% endfor %}
+      </select>
 
-            <div class="form-group mb-3">
-                <label for="title" class="fw-semibold" style="color:#5a189a;">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Drop your gist title" required>
-            </div>
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title" placeholder="Enter your post title..." required>
 
-            <div class="form-group mb-4">
-                <label for="body" class="fw-semibold" style="color:#5a189a;">The Main Gist</label>
-                <textarea class="form-control" id="body" name="body" rows="5" placeholder="Spill the gist..." required></textarea>
-            </div>
+      <label for="body">Content</label>
+      <textarea name="body" id="body" placeholder="Start writing your gist here..." required></textarea>
 
-            <button type="submit" class="btn btn-purple w-100 fw-bold">Save </button>
-        </form>
-    </div>
+      <button type="submit">Publish Post 🚀</button>
+    </form>
 
+    <a href="{% url 'main' %}" class="back">← Back to Home</a>
+  </div>
 </body>
 </html>

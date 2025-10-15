@@ -244,15 +244,16 @@
 <body>
   <header>
     <h1>GISTWARE 🤍</h1>
-    <nav class="category-nav">
-      <a href="{% url 'category_posts' 'tech' %}">Tech</a>
-      <a href="{% url 'category_posts' 'fashion' %}">Fashion</a>
-      <a href="{% url 'category_posts' 'food' %}">Food</a>
-      <a href="{% url 'category_posts' 'creativity' %}">Creativity</a>
-      <a href="{% url 'category_posts' 'inspiration' %}">Inspiration</a>
-      <a href="{% url 'category_posts' 'myspace' %}">My Space</a>
+    <p><nav class="category-nav">
+      <a href="{% url 'category_detail' 'tech' %}">Tech</a>
+      <a href="{% url 'category_detail' 'fashion' %}">Fashion</a>
+      <a href="{% url 'category_detail' 'food' %}">Food</a>
+      <a href="{% url 'category_detail' 'creativity' %}">Creativity</a>
+      <a href="{% url 'category_detail' 'inspiration' %}">Inspiration</a>
+      <a href="{% url 'category_detail' 'myspace' %}">My Space</a>
+      <a href ="{% url 'category_detail' 'others' %}">Others</a>
 
-    </nav>
+    </nav></p>
 
   <div class="auth-nav">
     {% if user.is_authenticated %}
@@ -265,8 +266,8 @@
   </header>
 
   <div class="posts-container">
-    <h1 style="text-align: center;">Hey there 👋 Welcome Again Guys </h1>
-    <p style="text-align: center;">I write about the things that shape how we live, build, create, fashion ,inspirational and more.</p> 
+    <h1 style="text-align: center;">Hey Here 👋 Welcome Again Guys </h1>
+    <p style="text-align: center;">I write about things that shape how we live, build, create, fashion, inspirational and more.</p> 
     <p style="text-align: center;">Choose a category above and let’s explore.</p>
 
   <footer>© 2025 GISTWARE — Built with 💜 by Seenarh</footer>

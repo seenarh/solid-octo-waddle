@@ -22,7 +22,7 @@ class PostListView(ListView):
     
 class CategoryListView(ListView):
     model = Post
-    template_name = 'main.html'
+    template_name ='category_detail.html'
     context_object_name = 'all_posts_list'
 
     def get_queryset(self):
@@ -37,26 +37,35 @@ class CategoryListView(ListView):
         context['current_category'] = next((c for c in categories if c['slug'] == category_slug), None)
         return context
 
-
 @login_required
 def post_new(request):
-    # allow only staff & superusers
+    # Only staff/superusers can post
     if not request.user.is_staff:
-        return redirect('main')  
+        return redirect('main')
+
+    # Capture category slug from query string (?category=tech)
+    category_slug = request.GET.get("category")
 
     if request.method == "POST":
         title = request.POST.get("title")
         body = request.POST.get("body")
+        category = request.POST.get("category") or category_slug
 
-        if title and body:
+        if title and body and category:
             post = Post.objects.create(
                 title=title,
                 text=body,
+                category=category,
+                author=request.user
             )
-            post.save()
-            return redirect('main')
+            return redirect('post_detail', pk=post.pk)
 
-    return render(request, 'post_new.html')
+    # Pass category choices and selected category to template
+    return render(request, "post_new.html", {
+        "category_slug": category_slug,
+        "categories": Post.CATEGORY_CHOICES,
+    })
+
 
 class PostDetailView(DetailView):
     model = Post
