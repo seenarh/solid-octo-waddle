@@ -20,7 +20,7 @@ from authentication.views import*
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
+       
 urlpatterns = [
     path('home/',home,name="recipes"),
     path('admin/', admin.site.urls),
